@@ -1,4 +1,6 @@
 SpeechRecognition
+soundfile
+playsound
 pyaudio
 pyttsx4
 openai-whisper

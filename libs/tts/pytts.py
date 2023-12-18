@@ -2,7 +2,15 @@ import pyttsx4
 
 def say(message):
     engine = pyttsx4.init()
-    engine.setProperty('rate', 125)
+    engine.setProperty('rate', 200)
+
+    # voices = engine.getProperty('voices')
+    # for voice in voices:
+    #     print('id = {}\tname = {}'.format(voice.id, voice.name))
+    
+    engine.setProperty('voice', 'zh')
+    # engine.setProperty('voice', voices[0].id)
+
     engine.say(message)
     engine.runAndWait()
     return

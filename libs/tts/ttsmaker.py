@@ -16,6 +16,7 @@ def say(message):
     }
     response = requests.post(url, headers=headers, data=json.dumps(params))
     mp3url = response.json()['audio_file_url']
+    print("url: ", mp3url)
     playsound(mp3url) 
     return
 
