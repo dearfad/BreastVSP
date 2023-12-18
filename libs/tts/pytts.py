@@ -1,32 +1,39 @@
 import pyttsx4
 
-engine = pyttsx4.init()
+def say(message):
+    engine = pyttsx4.init()
+    engine.setProperty('rate', 125)
+    engine.say(message)
+    engine.runAndWait()
+    return
 
-""" RATE"""
-rate = engine.getProperty('rate')   # getting details of current speaking rate
-print ('RATE', rate)                # printing current voice rate
-engine.setProperty('rate', 125)     # setting up new voice rate
+if __name__ == '__main__':
+    say("This is pyttsx4 demo.")
 
 
-"""VOLUME"""
-volume = engine.getProperty('volume')   # getting to know current volume level (min=0 and max=1)
-print ('VOLUME', volume)                # printing current volume level
-engine.setProperty('volume', 1)         # setting up volume level  between 0 and 1
+# MAY USE IN WHISPER
 
-"""VOICE"""
-# voices = engine.getProperty('voices')           # getting details of current voice
-# engine.setProperty('voice', voices[0].id)     # changing index, changes voices. o for female
-# engine.setProperty('voice', voices[1].id)     # changing index, changes voices. 1 for unknown
+# import pyttsx4
+# from io import BytesIO
+# from pydub import AudioSegment
+# from pydub.playback import play
+# import os
+# import sys
 
-# only coqui_ai_tts engine support cloning voice.
-# engine = pyttsx4.init('coqui_ai_tts')
-# engine.setProperty('speaker_wav', './docs/i_have_a_dream_10s.wav')
-
-# engine.say('this is an english text to voice test, listen it carefully and tell who i am.')
+# engine = pyttsx4.init()
+# b = BytesIO()
+# engine.save_to_file('i am Hello World', b)
 # engine.runAndWait()
+# #the bs is raw data of the audio.
+# bs=b.getvalue()
+# # add an wav file format header
+# b=bytes(b'RIFF')+ (len(bs)+38).to_bytes(4, byteorder='little')+b'WAVEfmt\x20\x12\x00\x00' \
+#                                                                b'\x00\x01\x00\x01\x00' \
+#                                                                b'\x22\x56\x00\x00\x44\xac\x00\x00' +\
+#     b'\x02\x00\x10\x00\x00\x00data' +(len(bs)).to_bytes(4, byteorder='little')+bs
+# # changed to BytesIO
+# b=BytesIO(b)
+# audio = AudioSegment.from_file(b, format="wav")
+# play(audio)
 
-
-engine.say('这是一个虚拟乳房疾病患者的项目。')
-
-engine.runAndWait()
-engine.stop()
+# sys.exit(0)
