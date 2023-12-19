@@ -22,6 +22,9 @@ if __name__=='__main__':
     #     print(response)
     #     say(response)
 
-    demo = gr.Interface(fn=test, inputs='text', outputs='text')
+    with gr.Blocks() as demo:
 
-    demo.launch(share=True)
+        gr.Audio(sources='microphone')
+
+
+    demo.launch()
