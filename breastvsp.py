@@ -1,5 +1,5 @@
 from libs.asr.speechrecognition import listen
-from libs.tts.pytts import say
+from libs.tts.edge import say
 from modelscope import AutoTokenizer, AutoModel, snapshot_download
 
 
