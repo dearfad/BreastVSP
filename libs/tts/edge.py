@@ -1,8 +1,6 @@
 import edge_tts
 import asyncio
 from playsound import playsound
-from edge_tts import VoicesManager
-
 
 
 def say(message):
@@ -10,8 +8,6 @@ def say(message):
 
 async def speak(message):
     text = message
-    voices = await VoicesManager.create()
-    print(voices.voices)
     voice = 'zh-CN-YunxiNeural'
     output = 'demo.mp3'
     rate = '-4%'
@@ -22,4 +18,3 @@ async def speak(message):
 
 if __name__ == '__main__':
     say("hello")
-    print(edge_tts.list_voices())

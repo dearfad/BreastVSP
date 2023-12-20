@@ -8,23 +8,23 @@ def test(name):
 
 if __name__=='__main__':
 
-    # model_dir = snapshot_download("ZhipuAI/chatglm3-6b", revision = "v1.0.0")
-    # tokenizer = AutoTokenizer.from_pretrained(model_dir, trust_remote_code=True)
-    # model = AutoModel.from_pretrained(model_dir, trust_remote_code=True).quantize(8).cuda()
-    # model = model.eval()
+    model_dir = snapshot_download("ZhipuAI/chatglm3-6b", revision = "v1.0.0")
+    tokenizer = AutoTokenizer.from_pretrained(model_dir, trust_remote_code=True)
+    model = AutoModel.from_pretrained(model_dir, trust_remote_code=True).quantize(8).cuda()
+    model = model.eval()
 
 
-    # history = []
-    # while True:
-    #     message = listen()
-    #     print(message)
-    #     response, history = model.chat(tokenizer, message, history=history)
-    #     print(response)
-    #     say(response)
+    history = []
+    while True:
+        message = listen()
+        print(message)
+        response, history = model.chat(tokenizer, message, history=history)
+        print(response)
+        say(response)
 
-    with gr.Blocks() as demo:
+    # with gr.Blocks() as demo:
 
-        gr.Audio(sources='microphone')
+    #     gr.Audio(sources='microphone')
 
 
     demo.launch()
