@@ -1,7 +1,8 @@
-from libs.asr.speechrecognition import listen
-from libs.tts.edge import say
-from modelscope import AutoTokenizer, AutoModel, snapshot_download
+# from libs.asr.speechrecognition import listen
+# from libs.tts.edge import say
+# from modelscope import AutoTokenizer, AutoModel, snapshot_download
 import gradio as gr
+from transformers import AutoTokenizer, AutoModel
 
 def test(name):
     return 'A'
@@ -21,10 +22,3 @@ if __name__=='__main__':
         response, history = model.chat(tokenizer, message, history=history)
         print(response)
         say(response)
-
-    # with gr.Blocks() as demo:
-
-    #     gr.Audio(sources='microphone')
-
-
-    demo.launch()

@@ -1,6 +1,12 @@
-SpeechRecognition
-soundfile
-playsound
-pyaudio
-pyttsx4
-openai-whisper
+# SpeechRecognition
+# soundfile
+# playsound
+# pyaudio
+# pyttsx4
+# openai-whisper
+# gradio
+# streamlit
+
+transformers
+sentencepiece
+jupyterlab
