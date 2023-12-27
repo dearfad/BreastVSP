@@ -9,6 +9,10 @@
 
 jupyterlab
 
+# UI
+# gradio
+streamlit
+
 # huggingface.co
 transformers
 
