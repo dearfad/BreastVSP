@@ -7,6 +7,14 @@
 # gradio
 # streamlit
 
-transformers
-sentencepiece
 jupyterlab
+
+# huggingface.co
+transformers
+
+# modelscope.cn
+modelscope
+
+# chatglm3-6b
+cpm_kernels
+sentencepiece
