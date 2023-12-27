@@ -1,19 +1,12 @@
-# from libs.asr.speechrecognition import listen
-# from libs.tts.edge import say
-# from modelscope import AutoTokenizer, AutoModel, snapshot_download
-import gradio as gr
-from transformers import AutoTokenizer, AutoModel
+from libs.models.mscope import get_model
+from libs.asr.speechrecognition import listen
+from libs.tts.edge import say
 
-def test(name):
-    return 'A'
 
-if __name__=='__main__':
+def main():
 
-    model_dir = snapshot_download("ZhipuAI/chatglm3-6b", revision = "v1.0.0")
-    tokenizer = AutoTokenizer.from_pretrained(model_dir, trust_remote_code=True)
-    model = AutoModel.from_pretrained(model_dir, trust_remote_code=True).quantize(8).cuda()
-    model = model.eval()
-
+    tokenizer, model = get_model('ZhipuAI/chatglm3-6b')
+    model = model.quantize(4).cuda().eval()
 
     history = []
     while True:
@@ -22,3 +15,7 @@ if __name__=='__main__':
         response, history = model.chat(tokenizer, message, history=history)
         print(response)
         say(response)
+
+
+if __name__ == '__main__':
+    main()
