@@ -20,7 +20,7 @@ def chat(message, history):
 with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column(scale=1):
-            photo = gr.Image(height=400)
+            photo = gr.Image(height=400, show_label=False, show_download_button=False, container=False)
             info = gr.Markdown()
             change_patient_btn = gr.Button(value='随机患者')
             change_patient_btn.click(get_vsp, outputs=[photo,info])
@@ -29,4 +29,4 @@ with gr.Blocks() as demo:
 
 
 if __name__ == '__main__':
-    demo.launch(share=True)
+    demo.launch(share=False)
