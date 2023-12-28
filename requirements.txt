@@ -25,3 +25,6 @@ sentencepiece
 
 # tts
 edge_tts
+
+# Patient Info
+faker
