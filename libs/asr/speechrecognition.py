@@ -4,7 +4,7 @@ def listen():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Say something!")
-        audio = r.listen(source, timeout=3, phrase_time_limit=5)
+        audio = r.listen(source, timeout=5, phrase_time_limit=10)
     print('recognition')
     message = r.recognize_whisper(audio, model="base", language="chinese")
     return message

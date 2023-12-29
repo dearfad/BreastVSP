@@ -7,6 +7,7 @@ class BreastVSP():
         self.name = ''
         self.age = ''
         self.address = ''
+        self.intro = ''
 
 
 def get_patient_info():
@@ -15,6 +16,7 @@ def get_patient_info():
     breastvsp.name = faker.name_female()
     breastvsp.address = faker.address()
     breastvsp.age = faker.pyint(15, 80)
+    breastvsp.intro = faker.text()
     return breastvsp
 
 
