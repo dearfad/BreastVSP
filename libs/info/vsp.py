@@ -8,14 +8,16 @@ class BreastVSP():
         self.age = ''
         self.address = ''
         self.intro = ''
+        self.phone = ''
 
 
 def get_patient_info():
     faker = Faker(locale="zh_CN")
     breastvsp = BreastVSP()
     breastvsp.name = faker.name_female()
-    breastvsp.address = faker.address()
     breastvsp.age = faker.pyint(15, 80)
+    breastvsp.address = faker.address()
+    breastvsp.phone = faker.phone_number()
     breastvsp.intro = faker.text()
     return breastvsp
 
