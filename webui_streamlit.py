@@ -1,5 +1,5 @@
 import streamlit as st
-# from libs.models.mscope import get_model
+from libs.models.hface import get_model
 # from libs.asr.speechrecognition import listen
 # from libs.tts.edge import say
 from libs.info.vsp import get_patient_info
@@ -17,7 +17,7 @@ with st.sidebar:
     st.title('👩 - BreastVSP -')
     with st.container(border=True):
         llm = st.toggle('大语言模型')
-        model = st.selectbox('语言模型', ['THUDM/ChatGLM3'])
+        model = st.selectbox('语言模型', ['THUDM/chatglm3-6b'])
     with st.container(border=True):
         micphone = st.toggle('麦克风输入')
         asr = st.selectbox('语音识别', ['openai/whisper'])
@@ -29,49 +29,44 @@ with st.sidebar:
     with st.container(border=True):
         patient = st.selectbox('患者信息', ['random'])
 
-# patient = get_patient_info()
-
 
 info_col, empty_col, chat_col, right_col = st.columns([1, 1, 3, 1])
 
+if "patient" in st.session_state:
+    pass
+else:
+    st.session_state.patient = get_patient_info()
+
+
 with info_col:
     st.image('patient.jpeg')
-    if "patient" not in st.session_state:
-        st.session_state.patient = get_patient_info()
-        patient = st.session_state.patient
-    else:
-        patient = st.session_state.patient
     st.markdown(f'''
-                #### {patient.name}
-                ###### 年龄：{patient.age}岁
-                ###### 地址：{patient.address}
-                ###### 电话：{patient.phone}
-                ''')
+            #### {st.session_state.patient.name}
+            ###### 年龄：{st.session_state.patient.age}岁
+            ###### 地址：{st.session_state.patient.address}
+            ###### 电话：{st.session_state.patient.phone}
+            ''')
     if st.button('更改患者', use_container_width=True):
         st.session_state.patient = get_patient_info()
-        patient = st.session_state.patient
 
 
 def chat():
-
-    # tokenizer, model = get_model()
-    #     with st.chat_message("assistant"):
-    #         message_placeholder = st.empty()
-    #         for response, history in model.stream_chat(tokenizer, prompt, history=list(st.session_state.messages)):
-    #             message_placeholder.markdown(response)
-    return 'USING LLM' if llm else 'NO LLM'
-
+    if llm:
+        tokenizer, model = get_model('THUDM/chatglm3-6b')
+        response, history = model.chat(tokenizer, prompt, history=st.session_state.messages)
+    else:
+        return 'NO LLM'
+    return response
 
 with chat_col:
-    chat_holder = st.text_area()
+    prompt = st.text_input('说点什么吧...', '')
+    chat_holder = st.empty()
     if "messages" not in st.session_state:
         st.session_state.messages = []
-    prompt = st.text_input('说点什么吧...', '')
     if prompt:
-        st.session_state.messages.append({"role": "user", "content": prompt})
         response = chat()
-        st.session_state.messages.append(
-            {"role": "assistant", "content": response})
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.messages.append({"role": "assistant", "content": response})
         x = ''
         for message in st.session_state.messages:
             x = x + f"{message['role']}, {message['content']}\n"

@@ -8,7 +8,7 @@ import streamlit as st
 #     'huggingface': 'THUDM/chatglm3-6b',
 # }
 
-@st.cache_resource
+# @st.cache_resource
 def get_model(model_id='ZhipuAI/chatglm3-6b'):
     MODELSCOPE_CACHE_PATH = os.environ.get('MODELSCOPE_CACHE')
     print('MODELSCOPE_CACHE_PATH: ', MODELSCOPE_CACHE_PATH)
