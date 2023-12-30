@@ -3,18 +3,19 @@ import asyncio
 from playsound import playsound
 
 
-def say(message):
-    asyncio.run(speak(message))
+def say(message, voice):
+    asyncio.run(speak(message, voice))
 
-async def speak(message):
+
+async def speak(message, voice):
     text = message
-    voice = 'zh-CN-XiaoyiNeural'
     output = './demo.mp3'
     rate = '-4%'
     volume = '+0%'
-    tts = edge_tts.Communicate(text=text,voice = voice,rate = rate,volume=volume)
+    tts = edge_tts.Communicate(
+        text=text, voice=voice, rate=rate, volume=volume)
     await tts.save(output)
     playsound(output)
 
 if __name__ == '__main__':
-    say("你好")
+    say("测试EDGE TTS ", voice='zh-CN-XiaoyiNeural')

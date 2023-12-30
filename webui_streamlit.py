@@ -77,7 +77,7 @@ if prompt:
             {'role': 'assistant', 'content': "没有使用大语言模型"})
     
     if voice:
-        say(response)
+        say(response, voice=tts_voice)
 
     # pro = st.empty()
     # if st.button('listen'):

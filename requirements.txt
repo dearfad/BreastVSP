@@ -24,7 +24,8 @@ sentencepiece
 
 # tts
 edge_tts
-playsound=1.2.2
+# playsound=1.2.2
+play_mp3
 
 # Patient Info
 faker
