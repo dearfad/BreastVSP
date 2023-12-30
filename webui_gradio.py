@@ -1,38 +1,24 @@
 import gradio as gr
-from libs.info.vsp import get_patient_info
-from libs.models.mscope import get_model
-
-tokenizer, model = get_model()
-
-
-def get_vsp():
-    breastvsp = get_patient_info()
-
-    photo = './patient.jpeg'
-    infotext = f'''
-                        ## {breastvsp.name}
-                        #### 年龄：{breastvsp.age}岁
-                        #### 地址：{breastvsp.address}
-                        '''
-    
-    return photo, infotext
-    # return infotext
-
-def chat(message, history):
-    response, history = model.chat(tokenizer, message, history=history)
-    return response['content']
 
 with gr.Blocks() as demo:
     with gr.Row():
+        with gr.Column(scale=0):
+            llm = gr.Checkbox(label='语言模型')
+            model = gr.Dropdown(
+                ['THUDM/chatglm3-6b', 'ZhipuAI/chatglm3-6b'], label='模型选择')
+            micphone = gr.Checkbox(label='麦克风输入')
+            asr = gr.Dropdown(['openai/whisper'], label='语音识别')
+            voice = gr.Checkbox(label='语音输出')
+            tts = gr.Dropdown(['rany2/edge-tts'], label='发音模型')
+            tts_voice = gr.Dropdown(['zh-CN-XiaoxiaoNeural', 'zh-CN-XiaoyiNeural', 'zh-CN-liaoning-XiaobeiNeural',
+                                     'zh-CN-shaanxi-XiaoniNeural', 'zh-HK-HiuGaaiNeural', 'zh-HK-HiuMaanNeural', 'zh-TW-HsiaoChenNeural', 'zh-TW-HsiaoYuNeural'], label="'语音选择")
         with gr.Column(scale=1):
-            photo = gr.Image(height=400, show_label=False, show_download_button=False, container=False)
-            info = gr.Markdown()
-            change_patient_btn = gr.Button(value='随机患者')
-            change_patient_btn.click(get_vsp, outputs=[photo,info])
-            # change_patient_btn.click(get_vsp, outputs=info)
+            photo = gr.Image('patient.jpeg', height=380, show_label=False, show_download_button=False)
+            info = gr.Textbox()
         with gr.Column(scale=2):
-            gr.ChatInterface(chat)
+            out = gr.Textbox()
 
+    # with st.container(border=True):
+    #     patient = st.selectbox('患者信息', ['random'])
 
-if __name__ == '__main__':
-    demo.launch(share=False)
+demo.launch(share=False)

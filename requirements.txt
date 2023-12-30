@@ -1,6 +1,5 @@
 # SpeechRecognition
 # soundfile
-# playsound
 # pyaudio
 # pyttsx4
 # openai-whisper
@@ -25,6 +24,7 @@ sentencepiece
 
 # tts
 edge_tts
+playsound=1.2.2
 
 # Patient Info
 faker
