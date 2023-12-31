@@ -8,12 +8,12 @@ import streamlit as st
 #     'huggingface': 'THUDM/chatglm3-6b',
 # }
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def get_model(model_id='ZhipuAI/chatglm3-6b'):
-    MODELSCOPE_CACHE_PATH = os.environ.get('MODELSCOPE_CACHE')
-    print('MODELSCOPE_CACHE_PATH: ', MODELSCOPE_CACHE_PATH)
-    MODEL_PATH = snapshot_download(model_id)
-    print('MODEL_PATH: ', MODEL_PATH)
+    # MODELSCOPE_CACHE_PATH = os.environ.get('MODELSCOPE_CACHE')
+    # print('MODELSCOPE_CACHE_PATH: ', MODELSCOPE_CACHE_PATH)
+    # MODEL_PATH = snapshot_download(model_id)
+    # print('MODEL_PATH: ', MODEL_PATH)
     tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     model = AutoModel.from_pretrained(model_id, trust_remote_code=True).quantize(8).cuda().eval()
     return tokenizer, model

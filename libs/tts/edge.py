@@ -3,13 +3,13 @@ import asyncio
 from playsound import playsound
 
 
-def say(message, voice):
+def tts_say(message, voice):
     asyncio.run(speak(message, voice))
 
 
 async def speak(message, voice):
     text = message
-    output = './demo.mp3'
+    output = './static/lastspeech.mp3'
     rate = '-4%'
     volume = '+0%'
     tts = edge_tts.Communicate(
