@@ -18,6 +18,9 @@ with gr.Blocks() as demo:
         with gr.Column(scale=2):
             out = gr.Textbox()
 
+    with gr.Accordion("See Details"):
+        gr.Markdown("lorem ipsum")
+
     # with st.container(border=True):
     #     patient = st.selectbox('患者信息', ['random'])
 

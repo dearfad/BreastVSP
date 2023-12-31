@@ -1,8 +1,4 @@
-# SpeechRecognition
-# soundfile
-# pyaudio
 # pyttsx4
-# openai-whisper
 # gradio
 # streamlit
 
@@ -21,6 +17,12 @@ modelscope
 # chatglm3-6b
 cpm_kernels
 sentencepiece
+
+# asr
+SpeechRecognition
+pyaudio
+soundfile
+openai-whisper
 
 # tts
 edge_tts

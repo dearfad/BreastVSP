@@ -1,7 +1,7 @@
 import streamlit as st
 from libs.models.mscope import get_model
 from libs.info.vsp import get_patient_info
-# import speech_recognition as sr
+import speech_recognition as sr
 # from libs.asr.speechrecognition import listen
 from libs.tts.edge import say
 
@@ -12,6 +12,7 @@ st.set_page_config(
     initial_sidebar_state='expanded',
 )
 
+st.echo('testsdaf')
 
 if "patient" not in st.session_state:
     st.session_state.patient = get_patient_info()
@@ -40,6 +41,7 @@ with st.sidebar:
                 tokenizer, model = get_model()
         with st.container(border=True):
             micphone = st.toggle('麦克风输入')
+            mic_placeholder = st.empty()
             asr = st.selectbox('语音识别', ['openai/whisper'])
         with st.container(border=True):
             voice = st.toggle('语音输出')
@@ -58,8 +60,8 @@ for message in st.session_state.messages:
 
 prompt = st.chat_input('说点什么吧...')
 
-if prompt:
 
+def c():
     with st.chat_message("user"):
         st.markdown(prompt)
 
@@ -75,21 +77,28 @@ if prompt:
         st.session_state.messages.append({'role': 'user', 'content': prompt})
         st.session_state.messages.append(
             {'role': 'assistant', 'content': "没有使用大语言模型"})
-    
+
     if voice:
         say(response, voice=tts_voice)
 
-    # pro = st.empty()
-    # if st.button('listen'):
-    #     a = True
-    #     while a:
-    #         r = sr.Recognizer()
-    #         with sr.Microphone() as source:
-    #             pro.text('say')
-    #             audio = r.listen(source, timeout=None, phrase_time_limit=10)
-    #             pro.text('recognition')
-    #             message = r.recognize_whisper(audio, model="base", language="chinese")
-    #             pro.text(message)
-    #             say(message)
-    #             if message == '退出':
-    #                 a = False
+if prompt:
+
+    c()
+
+
+if micphone:
+    a = True
+    while a:
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            mic_placeholder.markdown('say')
+            audio = r.listen(source, timeout=None, phrase_time_limit=10)
+            mic_placeholder.markdown('recognition')
+            asr_message = r.recognize_whisper(
+                audio, model="small", language="chinese")
+            mic_placeholder.markdown(asr_message)
+            if asr_message:
+                prompt = asr_message
+                c()                
+            if asr_message == '退出':
+                a = False
