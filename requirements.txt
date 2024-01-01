@@ -1,11 +1,4 @@
-# pyttsx4
-# gradio
-# streamlit
-
-jupyterlab
-
 # UI
-# gradio
 streamlit
 
 # huggingface.co
@@ -26,8 +19,7 @@ openai-whisper
 
 # tts
 edge_tts
-# playsound=1.2.2
-play_mp3
+playsound=1.2.2
 
 # Patient Info
 faker
