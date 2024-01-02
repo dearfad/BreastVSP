@@ -1,16 +1,22 @@
 import os
+import io
 import streamlit as st
 from streamlit_javascript import st_javascript
 import speech_recognition as sr
+from audio_recorder_streamlit import audio_recorder
 
 import edge_tts
 import asyncio
 import base64
+import sounddevice as sd
+from playsound import playsound
 
 from modelscope.hub.snapshot_download import snapshot_download
 from modelscope import AutoTokenizer, AutoModel
 
 # LLM MODEL
+
+
 @st.cache_resource(show_spinner=False)
 def get_model(model_id='ZhipuAI/chatglm3-6b'):
     # MODELSCOPE_CACHE_PATH = os.environ.get('MODELSCOPE_CACHE')
@@ -23,6 +29,8 @@ def get_model(model_id='ZhipuAI/chatglm3-6b'):
     return tokenizer, model
 
 # TTS
+
+
 async def speak(text):
     voice = 'zh-CN-XiaoxiaoNeural'
     rate = '-4%'
@@ -41,8 +49,11 @@ async def speak(text):
             <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
             </audio>
             """
+    # st_javascript("""
+    #                 document.write("<h1>what</h1>")
+    #               """)
     st.markdown(audio_tag, unsafe_allow_html=True)
-    return
+    return audio_bytes
 
 
 # LLM
@@ -88,6 +99,7 @@ for message in st.session_state.messages:
 
 prompt = st.chat_input('')
 
+
 def chat():
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -107,9 +119,8 @@ def chat():
             {'role': 'assistant', 'content': response})
 
     if tts_toggle:
-        st.session_state.speaking = True
-        tage = asyncio.run(speak(response))
-
+        # st.session_state.speaking = True
+        audio_bytes = asyncio.run(speak(response))
 
 
 if prompt:
@@ -118,24 +129,18 @@ if prompt:
 
 if asr_toggle:
 
-    
-# if (audio.paused) {
-#   console.log("音频当前处于暂停状态");
-# } else {
-#   console.log("音频正在播放");
-# }
-
-# if (audio.ended) {
-#   console.log("音频已经播放完毕");
-# } else {
-#   console.log("音频还未播放完毕");
-# }
-
-    # return_value = st_javascript("""return document.getElementById("tts_speaker");""")
-    return_value = st_javascript("""document.getElementById("tts_speaker");""")
-    st.markdown(f"Return value was: {return_value}")
-    # print(f"Return value was: {return_value}")
-
+    # audio_mic = audio_recorder(
+    #     text="识别",
+    #     icon_name='user',
+    #     icon_size='6x'
+    # )
+    # if audio_mic:
+    #     r = sr.Recognizer()
+    #     asr_message = r.recognize_whisper(
+    #             audio_mic, model="small", language="chinese")
+    #     if asr_message:
+    #         prompt = asr_message
+    #         chat()
 
     if not st.session_state.speaking:
         r = sr.Recognizer()
