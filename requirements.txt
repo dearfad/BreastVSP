@@ -1,5 +1,6 @@
 # UI
 streamlit
+streamlit-javascript
 
 # huggingface.co
 transformers

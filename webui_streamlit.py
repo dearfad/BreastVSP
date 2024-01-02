@@ -1,11 +1,11 @@
 import os
 import streamlit as st
+from streamlit_javascript import st_javascript
 import speech_recognition as sr
 
 import edge_tts
 import asyncio
-from playsound import playsound
-from pyaudio import PyAudio
+import base64
 
 from modelscope.hub.snapshot_download import snapshot_download
 from modelscope import AutoTokenizer, AutoModel
@@ -23,18 +23,25 @@ def get_model(model_id='ZhipuAI/chatglm3-6b'):
     return tokenizer, model
 
 # TTS
-def tts_say(message, voice):
-    asyncio.run(speak(message, voice))
-
-async def speak(message, voice):
-    text = message
-    output = './static/lastspeech.mp3'
+async def speak(text):
+    voice = 'zh-CN-XiaoxiaoNeural'
     rate = '-4%'
     volume = '+0%'
-    tts = edge_tts.Communicate(
+    communicates = edge_tts.Communicate(
         text=text, voice=voice, rate=rate, volume=volume)
-    await tts.save(output)
-    playsound(output)
+
+    audio_list = []
+    async for communicate in communicates.stream():
+        if communicate["type"] == "audio":
+            audio_list.append(communicate["data"])
+    audio_bytes = b''.join(audio_list)
+    audio_base64 = base64.b64encode(audio_bytes).decode()
+    audio_tag = f"""
+            <audio controls autoplay="true" id="tts_speaker">
+            <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
+            </audio>
+            """
+    st.markdown(audio_tag, unsafe_allow_html=True)
     return
 
 
@@ -55,6 +62,9 @@ st.set_page_config(
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+if "speaking" not in st.session_state:
+    st.session_state.speaking = False
 
 with st.sidebar:
 
@@ -78,7 +88,6 @@ for message in st.session_state.messages:
 
 prompt = st.chat_input('')
 
-
 def chat():
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -90,16 +99,17 @@ def chat():
                 response_placeholder.markdown(response)
             st.session_state.messages = history
     else:
+        response = '没有使用大语言模型, 需要时可以打开大语言模型开关'
         with st.chat_message("assistant"):
-            st.markdown('没有使用大语言模型')
+            st.markdown(response)
         st.session_state.messages.append({'role': 'user', 'content': prompt})
         st.session_state.messages.append(
-            {'role': 'assistant', 'content': "没有使用大语言模型"})
+            {'role': 'assistant', 'content': response})
 
     if tts_toggle:
-        tts_say(response, 'zh-CN-XiaoxiaoNeural')
-        # p = Process(target=tts_say, args=(response, 'zh-CN-XiaoxiaoNeural'))
-        # p.start()
+        st.session_state.speaking = True
+        tage = asyncio.run(speak(response))
+
 
 
 if prompt:
@@ -107,15 +117,36 @@ if prompt:
 
 
 if asr_toggle:
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        mic_status_placeholder = st.empty()
-        mic_status_placeholder.write('请说...')
-        audio = r.listen(source, timeout=None, phrase_time_limit=10)
-        mic_status_placeholder.write('识别中...')
-        asr_message = r.recognize_whisper(
-            audio, model="small", language="chinese")
-        mic_status_placeholder.empty()
-        if asr_message:
-            prompt = asr_message
-            chat()
+
+    
+# if (audio.paused) {
+#   console.log("音频当前处于暂停状态");
+# } else {
+#   console.log("音频正在播放");
+# }
+
+# if (audio.ended) {
+#   console.log("音频已经播放完毕");
+# } else {
+#   console.log("音频还未播放完毕");
+# }
+
+    # return_value = st_javascript("""return document.getElementById("tts_speaker");""")
+    return_value = st_javascript("""document.getElementById("tts_speaker");""")
+    st.markdown(f"Return value was: {return_value}")
+    # print(f"Return value was: {return_value}")
+
+
+    if not st.session_state.speaking:
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            mic_status_placeholder = st.empty()
+            mic_status_placeholder.write('请说...')
+            audio = r.listen(source, timeout=None, phrase_time_limit=10)
+            mic_status_placeholder.write('识别中...')
+            asr_message = r.recognize_whisper(
+                audio, model="small", language="chinese")
+            mic_status_placeholder.empty()
+            if asr_message:
+                prompt = asr_message
+                chat()
