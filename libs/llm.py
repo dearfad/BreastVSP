@@ -1,23 +1,18 @@
 import os
-from modelscope.hub.snapshot_download import snapshot_download
-from modelscope import AutoTokenizer, AutoModel
+from huggingface_hub import snapshot_download
+from transformers import AutoTokenizer, AutoModel
 import streamlit as st
-
-# MODEL_NAME_DICT = {
-#     'modelscope': 'ZhipuAI/chatglm3-6b',
-#     'huggingface': 'THUDM/chatglm3-6b',
-# }
 
 
 @st.cache_resource(show_spinner=False)
-def get_model(model_id="ZhipuAI/chatglm3-6b"):
-    # MODELSCOPE_CACHE_PATH = os.environ.get('MODELSCOPE_CACHE')
-    # print('MODELSCOPE_CACHE_PATH: ', MODELSCOPE_CACHE_PATH)
-    # MODEL_PATH = snapshot_download(model_id)
-    # print('MODEL_PATH: ', MODEL_PATH)
-    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
+def get_model(repo_id="THUDM/chatglm3-6b"):
+    HF_HOME_PATH = os.environ.get("HF_HOME")
+    print("HF_HOME_PATH: ", HF_HOME_PATH)
+    MODEL_PATH = snapshot_download(repo_id)
+    print("MODEL_PATH: ", MODEL_PATH)
+    tokenizer = AutoTokenizer.from_pretrained(repo_id, trust_remote_code=True)
     model = (
-        AutoModel.from_pretrained(model_id, trust_remote_code=True)
+        AutoModel.from_pretrained(repo_id, trust_remote_code=True)
         .quantize(4)
         .cuda()
         .eval()
@@ -26,4 +21,4 @@ def get_model(model_id="ZhipuAI/chatglm3-6b"):
 
 
 if __name__ == "__main__":
-    tokenizer, model = get_model("ZhipuAI/chatglm3-6b")
+    tokenizer, model = get_model("THUDM/chatglm3-6b")

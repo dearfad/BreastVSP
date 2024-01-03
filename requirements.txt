@@ -2,10 +2,10 @@
 streamlit
 
 # huggingface.co
-# transformers
+transformers
 
 # modelscope.cn
-modelscope
+# modelscope
 
 # chatglm3-6b
 cpm_kernels
