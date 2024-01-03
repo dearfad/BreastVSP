@@ -1,13 +1,13 @@
 import streamlit as st
-from libs.tts import tts_play
 from libs.llm import get_model
 from libs.asr import get_speech
+from libs.tts import tts_play
 
 st.set_page_config(
     page_title="乳腺外科虚拟病人",
     page_icon="👩",
-    layout='wide',
-    initial_sidebar_state='expanded',
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 
 if "messages" not in st.session_state:
@@ -15,20 +15,23 @@ if "messages" not in st.session_state:
 
 
 with st.sidebar:
-    st.title('👩 - BreastVSP -')
-    if llm_toggle := st.toggle('大语言模型'):
-        with st.spinner('加载模型中...'):
+    st.title("👩 - BreastVSP ")
+    llm_toggle = st.toggle("大语言模型")
+    asr_toggle = st.toggle("麦克风输入")
+    tts_toggle = st.toggle("语音输出")
+
+    if llm_toggle:
+        with st.spinner("加载模型中..."):
             st.session_state.tokenizer, st.session_state.model = get_model()
-    asr_toggle = st.toggle('麦克风输入')
-    tts_toggle = st.toggle('语音输出')
-    if st.button('清除会话历史', type="primary"):
+
+    if st.button("清除会话历史", type="primary"):
         st.session_state.messages = []
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
-prompt = st.chat_input('')
+prompt = st.chat_input("")
 
 
 def chat():
@@ -38,19 +41,20 @@ def chat():
     if llm_toggle:
         with st.chat_message("assistant"):
             response_placeholder = st.empty()
-            for response, history in st.session_state.model.stream_chat(st.session_state.tokenizer, prompt, history=st.session_state.messages):
+            for response, history in st.session_state.model.stream_chat(
+                st.session_state.tokenizer, prompt, history=st.session_state.messages
+            ):
                 response_placeholder.markdown(response)
             st.session_state.messages = history
     else:
-        response = '没有使用大语言模型, 需要时可以打开大语言模型开关'
+        response = "没有使用大语言模型, 需要时可以打开大语言模型开关"
         with st.chat_message("assistant"):
             st.markdown(response)
-        st.session_state.messages.append({'role': 'user', 'content': prompt})
-        st.session_state.messages.append(
-            {'role': 'assistant', 'content': response})
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.messages.append({"role": "assistant", "content": response})
 
     if tts_toggle:
-        tts_play(response, voice='zh-CN-liaoning-XiaobeiNeural')
+        tts_play(response)
 
 
 if prompt:

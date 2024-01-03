@@ -2,7 +2,7 @@
 streamlit
 
 # huggingface.co
-transformers
+# transformers
 
 # modelscope.cn
 modelscope
@@ -20,4 +20,7 @@ edge_tts
 playsound
 
 # Patient Info
-faker
+# faker
+
+# chain
+langchain
