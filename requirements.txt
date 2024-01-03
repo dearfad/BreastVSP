@@ -1,6 +1,5 @@
 # UI
 streamlit
-streamlit-javascript
 
 # huggingface.co
 transformers
@@ -14,13 +13,11 @@ sentencepiece
 
 # asr
 SpeechRecognition
-pyaudio
-soundfile
 openai-whisper
 
 # tts
 edge_tts
-playsound=1.2.2
+playsound
 
 # Patient Info
 faker
