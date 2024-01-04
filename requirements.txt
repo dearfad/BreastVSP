@@ -11,6 +11,12 @@ transformers
 cpm_kernels
 sentencepiece
 
+# api
+loguru
+sse-starlette
+accelerate
+openai
+
 # asr
 SpeechRecognition
 openai-whisper
@@ -24,3 +30,11 @@ playsound
 
 # chain
 langchain
+unstructured
+unstructured[pdf]
+sentence-transformers
+chromadb
+
+# jupyter
+jupyterlab
+ipywidgets
