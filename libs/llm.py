@@ -3,7 +3,7 @@ from huggingface_hub import snapshot_download
 from transformers import AutoTokenizer, AutoModel
 import streamlit as st
 
-MODEL_PATH = 'd:\\Github\\huggingface\\hub\\models--THUDM--chatglm3-6b\\snapshots\\456aa875cf1f46623006edaa23103774ea9c0eae'
+MODEL_PATH = 'D:\\Github\\huggingface\\hub\\models--THUDM--chatglm3-6b\\snapshots\\b098244a71fbe69ce149682d9072a7629f7e908c'
 
 @st.cache_resource(show_spinner=False)
 def get_model(repo_id="THUDM/chatglm3-6b"):
