@@ -4,7 +4,7 @@ from libs.asr import get_speech
 from libs.tts import tts_play
 
 st.set_page_config(
-    page_title="乳腺外科虚拟病人",
+    page_title="MiniAI",
     page_icon="👩",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -15,7 +15,7 @@ if "messages" not in st.session_state:
 
 
 with st.sidebar:
-    st.title("👩 - BreastVSP ")
+    st.title("👩 - MiniAI -")
     llm_toggle = st.toggle("大语言模型")
     asr_toggle = st.toggle("麦克风输入")
     tts_toggle = st.toggle("语音输出")
