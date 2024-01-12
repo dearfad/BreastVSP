@@ -4,7 +4,7 @@ from libs.asr import get_speech
 from libs.tts import tts_play
 
 st.set_page_config(
-    page_title="MiniAI",
+    page_title="BreastVSP",
     page_icon="👩",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -15,7 +15,7 @@ if "messages" not in st.session_state:
 
 
 with st.sidebar:
-    st.title("👩 - MiniAI -")
+    st.title("👩 - BreastVSP -")
     llm_toggle = st.toggle("大语言模型")
     asr_toggle = st.toggle("麦克风输入")
     tts_toggle = st.toggle("语音输出")
@@ -41,11 +41,14 @@ def chat():
     if llm_toggle:
         with st.chat_message("assistant"):
             response_placeholder = st.empty()
-            for response, history in st.session_state.model.stream_chat(
+            for response in st.session_state.model.chat_stream(
+            # for response, history in st.session_state.model.stream_chat(
                 st.session_state.tokenizer, prompt, history=st.session_state.messages
             ):
                 response_placeholder.markdown(response)
-            st.session_state.messages = history
+                print(response)
+                print('HHHHH: ', st.session_state.messages)
+            # st.session_state.messages = history
     else:
         response = "没有使用大语言模型, 需要时可以打开大语言模型开关"
         with st.chat_message("assistant"):
