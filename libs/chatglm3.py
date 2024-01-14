@@ -38,6 +38,6 @@ class ChatGLM3(LLM):
         **kwargs: Any
     ) -> str:
         response, self.history = self.model.chat(
-            self.tokenizer, prompt, history=self.history,  max_length= 8192
+            self.tokenizer, prompt, history=self.history
         )
         return response
