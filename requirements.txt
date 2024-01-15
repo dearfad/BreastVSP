@@ -15,3 +15,6 @@ openai-whisper
 # tts
 edge_tts
 playsound
+
+# tongyi
+dashscope
