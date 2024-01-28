@@ -17,6 +17,3 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 df = conn.read(ttl=0)
 
 st.write(df)
-
-https://docs.google.com/spreadsheets/d/1LgpwZ3PkNWVkRXqYNd_eSQz4YOjZH5JFNLSPyGO_Dp8/edit?usp=sharing
-https://docs.google.com/spreadsheets/d/1LgpwZ3PkNWVkRXqYNd_eSQz4YOjZH5JFNLSPyGO_Dp8/edit?usp=sharing
