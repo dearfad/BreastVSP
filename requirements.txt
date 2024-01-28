@@ -1,20 +1,20 @@
 # UI
 streamlit
 
-# huggingface.co
-transformers
+# # huggingface.co
+# transformers
 
-# chatglm3-6b
-cpm_kernels
-sentencepiece
+# # chatglm3-6b
+# cpm_kernels
+# sentencepiece
 
-# asr
-SpeechRecognition
-openai-whisper
+# # asr
+# SpeechRecognition
+# openai-whisper
 
-# tts
-edge_tts
-playsound
+# # tts
+# edge_tts
+# playsound
 
-# tongyi
-dashscope
+# # tongyi
+# dashscope
