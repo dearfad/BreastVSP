@@ -12,8 +12,8 @@ st.set_page_config(
 st.title('Breast VSP')
 
 # Create a connection object.
-conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+conn = st.connection("gsheets", type=GSheetsConnection)
 
-df = conn.read(ttl=0)
+df = conn.read(worksheet='backup', ttl=0)
 
 st.write(df)
