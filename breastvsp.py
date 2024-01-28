@@ -14,6 +14,9 @@ st.title('Breast VSP')
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-df = conn.read(worksheet='data', ttl=0)
+df = conn.read(ttl=0)
 
 st.write(df)
+
+https://docs.google.com/spreadsheets/d/1LgpwZ3PkNWVkRXqYNd_eSQz4YOjZH5JFNLSPyGO_Dp8/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1LgpwZ3PkNWVkRXqYNd_eSQz4YOjZH5JFNLSPyGO_Dp8/edit?usp=sharing
