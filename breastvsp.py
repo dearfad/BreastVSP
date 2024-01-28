@@ -16,10 +16,10 @@ st.title('Breast VSP')
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-# df = conn.read(ttl=0)
+df = conn.read(worksheet=1, ttl=0)
 
-data = pd.DataFrame(np.random.randn(10, 20), columns=("col %d" % i for i in range(20)))
+# data = pd.DataFrame(np.random.randn(10, 20), columns=("col %d" % i for i in range(20)))
 
-conn.update(wordsheet=1, data=data)
+# conn.update(wordsheet=1, data=data)
 
-st.write(data)
+st.write(df)
