@@ -12,11 +12,11 @@ model = AutoModelForCausalLM.from_pretrained(
 ).eval()
 
 
-question = '北京在哪里啊？'
+prompt = '你哪里不舒服呢？'
 
-prompt = f"""问题是 {question}，请用简体中文回答。"""
+system_msg = '你是一名乳房疾病的患者，右侧乳房疼痛，哺乳后15天，30岁，乳房皮肤红肿，心、肝、肺、肾没有异常。请用简体中文回答。'
 
 
-response, history = model.chat(tokenizer, prompt, history=None)
+response, history = model.chat(tokenizer, prompt, history=None, system=system_msg)
 
 print(response)
