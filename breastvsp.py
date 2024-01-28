@@ -12,7 +12,7 @@ st.set_page_config(
 st.title('Breast VSP')
 
 # Create a connection object.
-conn = st.connection("gsheets", type=GSheetsConnection)
+conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 
 df = conn.read()
 
