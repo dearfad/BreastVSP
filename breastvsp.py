@@ -16,6 +16,7 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 df = conn.read()
 
+st.write(df)
 # Print results.
-for row in df.itertuples():
-    st.write(f"{row['姓名']} has a :{row['年级']}:")
+# for row in df.itertuples():
+#     st.write(f"{row['姓名']} has a :{row['年级']}:")
