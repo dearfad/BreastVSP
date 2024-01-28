@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd
+from streamlit_gsheets import GSheetsConnection
 
 st.set_page_config(
     page_title="BreastVSP",
@@ -11,16 +11,11 @@ st.set_page_config(
 
 st.title('Breast VSP')
 
-df = pd.DataFrame(
-    {
-        "Name": [
-            "Braund, Mr. Owen Harris",
-            "Allen, Mr. William Henry",
-            "Bonnell, Miss. Elizabeth",
-        ],
-        "Age": [22, 35, 58],
-        "Sex": ["male", "male", "female"],
-    }
-)
+# Create a connection object.
+conn = st.connection("gsheets", type=GSheetsConnection)
 
-df.to_csv('test_st_save.csv')
+df = conn.read()
+
+# Print results.
+for row in df.itertuples():
+    st.write(f"{row['姓名']} has a :{row['年级']}:")

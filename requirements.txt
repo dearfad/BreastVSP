@@ -1,6 +1,9 @@
 # UI
 streamlit
 
+# Google Sheet
+st-gsheets-connection
+
 # # huggingface.co
 # transformers
 
