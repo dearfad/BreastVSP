@@ -20,6 +20,6 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 data = pd.DataFrame(np.random.randn(10, 20), columns=("col %d" % i for i in range(20)))
 
-conn.update(data=data)
+conn.update(wordsheet=1, data=data)
 
 st.write(data)
