@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
+import pandas as pd
 
 st.set_page_config(
     page_title="BreastVSP",
@@ -14,6 +15,10 @@ st.title('Breast VSP')
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-df = conn.read(worksheet='backup', ttl=0)
+# df = conn.read(ttl=0)
 
-st.write(df)
+data = pd.DataFrame(np.random.randn(10, 20), columns=("col %d" % i for i in range(20)))
+
+conn.update(data=data)
+
+st.write(data)
