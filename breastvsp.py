@@ -11,14 +11,9 @@ st.set_page_config(
 
 st.title('Breast VSP')
 
-st.cache_data.clear()
-
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-df = conn.read()
+df = conn.read(ttl=0)
 
 st.write(df)
-# Print results.
-# for row in df.itertuples():
-#     st.write(f"{row['姓名']} has a :{row['年级']}:")
