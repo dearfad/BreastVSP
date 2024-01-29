@@ -11,8 +11,6 @@ st.set_page_config(
 
 st.title('乳腺外科虚拟病人')
 
-
-
 if "login" not in st.session_state:
     st.session_state.login = False
 
@@ -28,6 +26,7 @@ if not st.session_state.login:
         if name:
             save_to_gspread([name, grade])
             login_placeholder.empty()
+            st.session_state.login = True
         else:
             st.error('请输入姓名', icon="🚨")
 
