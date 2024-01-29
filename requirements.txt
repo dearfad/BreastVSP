@@ -2,7 +2,7 @@
 streamlit
 
 # Google Sheet
-st-gsheets-connection
+gspread
 
 # # huggingface.co
 # transformers
