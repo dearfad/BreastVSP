@@ -4,6 +4,9 @@ streamlit
 # Google Sheet
 gspread
 
+# tongyi
+dashscope
+
 # # huggingface.co
 # transformers
 
@@ -18,6 +21,3 @@ gspread
 # # tts
 # edge_tts
 # playsound
-
-# # tongyi
-# dashscope
