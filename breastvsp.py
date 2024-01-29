@@ -1,5 +1,5 @@
 import streamlit as st
-import gspread
+from libs.utils import save_to_gspread
 
 st.set_page_config(
     page_title="BreastVSP",
@@ -11,8 +11,4 @@ st.set_page_config(
 
 st.title('Breast VSP')
 
-gc = gspread.service_account_from_dict(st.secrets.gspread_credentials)
-sh = gc.open("breastvsp")
-worksheet = sh.worksheet("backup")
-worksheet.append_row(['1','2'])
-st.write(worksheet)
+save_to_gspread(['x','y'])
