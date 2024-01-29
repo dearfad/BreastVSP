@@ -46,21 +46,24 @@ prompt = st.chat_input("")
 if prompt:
     with st.chat_message("user"):
         st.markdown(prompt)
-    st.session_state.messages.append({'role': 'user', 'content': prompt})
-    response = Generation.call(
-        'qwen-1.8b-chat',
-        messages=st.session_state.messages,
-        # set the random seed, optional, default to 1234 if not set
-        seed=random.randint(1, 10000),
-        result_format='message',  # set the result to be "message"  format.
-    )
-    if response.status_code == HTTPStatus.OK:
-        print(response)
 
-    # with st.chat_message("assistant"):
-    #     response_placeholder = st.empty()
-    #     for response in get_response(prompt=prompt, history=st.session_state.messages, llm=llm_toggle, llm_model='qwen', online=True): 
-    #         response_placeholder.markdown(response)
+    st.session_state.messages.append({'role': 'user', 'content': prompt})
+
+
+    with st.chat_message("assistant"):
+        response = Generation.call(
+            'qwen-1.8b-chat',
+            messages=st.session_state.messages,
+            # set the random seed, optional, default to 1234 if not set
+            seed=random.randint(1, 10000),
+            result_format='message',  # set the result to be "message"  format.
+        )
+        if response.status_code == HTTPStatus.OK:
+            st.write(response)
+
+        # response_placeholder = st.empty()
+        # for response in get_response(prompt=prompt, history=st.session_state.messages, llm=llm_toggle, llm_model='qwen', online=True): 
+        #     response_placeholder.markdown(response)
             
     # st.session_state.messages.append({"role": "user", "content": prompt})
     # st.session_state.messages.append({"role": "assistant", "content": response})
