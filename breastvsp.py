@@ -12,7 +12,7 @@ st.set_page_config(
 st.title('Breast VSP')
 
 name = st.text_input('姓名')
-# grade = st.selectbox('年级',(range(1,10)))
+grade = st.selectbox('年级',tuple(range(1,10)))
 
 st.write('你的姓名是：', name)
-# st.write('你的年级是：', grade)
+st.write('你的年级是：', grade)
