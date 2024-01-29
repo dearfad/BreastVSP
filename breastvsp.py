@@ -34,8 +34,10 @@ st.title('乳腺外科虚拟病人')
 #         else:
 #             st.error('请输入姓名', icon="🚨")
 
+system_msg = '你是一名乳房疾病的患者，右侧乳房疼痛。哺乳后15天，30岁，乳房皮肤红肿，心、肝、肺、肾没有异常，体温39度。请不要说问题以外的回答。请用简体中文回答。'
+
 if "messages" not in st.session_state:
-    st.session_state.messages = [{'role': 'system', 'content': 'You are a helpful assistant.'}]
+    st.session_state.messages = [{'role': 'system', 'content': system_msg}]
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
