@@ -17,4 +17,7 @@ grade = st.selectbox('年级',tuple(range(2010,2030)))
 save_info_bt = st.button('保存', use_container_width=True)
 
 if save_info_bt:
-   save_to_gspread([name, grade])
+    if name:
+        save_to_gspread([name, grade])
+    else:
+        st.error('请输入姓名', icon="🚨")
