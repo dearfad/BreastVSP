@@ -46,7 +46,7 @@ system_msg = """
 if "messages" not in st.session_state:
     st.session_state.messages = [{'role': 'system', 'content': system_msg}]
 
-if not messages:
+if not st.session_state.messages:
     st.session_state.messages = [{'role': 'system', 'content': system_msg}]
 
 for message in st.session_state.messages:
