@@ -13,5 +13,6 @@ st.title('Breast VSP')
 
 gc = gspread.service_account_from_dict(st.secrets.gspread_credentials)
 sh = gc.open("breastvsp")
-
-st.write(sh.sheet1.get('A1'))
+worksheet = sh.worksheet("backup")
+worksheet.append_row(['1','2'])
+st.write(worksheet)
