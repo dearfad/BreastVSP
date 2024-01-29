@@ -11,4 +11,8 @@ st.set_page_config(
 
 st.title('Breast VSP')
 
-save_to_gspread(['x','y'])
+name = st.text_input('姓名')
+grade = st.selectbox('年级',(range(1,10)))
+
+st.write('你的姓名是：', name)
+st.write('你的年级是：', grade)
