@@ -57,7 +57,7 @@ prompt = st.chat_input("")
 
 if prompt:
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.text(prompt)
 
     st.session_state.messages.append({'role': 'user', 'content': prompt})
 
@@ -72,6 +72,6 @@ if prompt:
         )
         if response.status_code == HTTPStatus.OK:
             response_placeholder = st.empty()
-            response_placeholder.markdown(response.output.choices[0]['message']['content'])
+            response_placeholder.text(response.output.choices[0]['message']['content'])
             
         st.session_state.messages.append({'role': response.output.choices[0]['message']['role'],'content': response.output.choices[0]['message']['content']})
