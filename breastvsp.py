@@ -1,7 +1,5 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
-import pandas as pd
-import numpy as np
+import gspread
 
 st.set_page_config(
     page_title="BreastVSP",
@@ -13,13 +11,7 @@ st.set_page_config(
 
 st.title('Breast VSP')
 
-# Create a connection object.
-conn = st.connection("gsheets", type=GSheetsConnection)
+# gc = gspread.service_account()
+# wks = gc.open("Where is the money Lebowski?").sheet1
 
-df = conn.read(ttl=0)
-
-# data = pd.DataFrame(np.random.randn(10, 20), columns=("col %d" % i for i in range(20)))
-
-# conn.update(wordsheet=1, data=data)
-
-st.write(df)
+st.write(st.secrets.gspread_credentials)
