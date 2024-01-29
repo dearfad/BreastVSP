@@ -11,7 +11,7 @@ st.set_page_config(
 
 st.title('Breast VSP')
 
-gc = gspread.service_account(st.secrets.gspread_credentials)
+gc = gspread.service_account_from_dict(st.secrets.gspread_credentials)
 # wks = gc.open("Where is the money Lebowski?").sheet1
 
 st.write(gc)
