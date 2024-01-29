@@ -62,4 +62,4 @@ if prompt:
             response_placeholder = st.empty()
             response_placeholder.markdown(response.output.choices[0]['message']['content'])
             
-        st.sessino_state.messages.append({'role': response.output.choices[0]['message']['role'],'content': response.output.choices[0]['message']['content']})
+        st.session_state.messages.append({'role': response.output.choices[0]['message']['role'],'content': response.output.choices[0]['message']['content']})
