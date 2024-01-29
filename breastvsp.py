@@ -25,3 +25,23 @@ if login_bt:
         st.write(f'{name} 医生')
     else:
         st.error('请输入姓名', icon="🚨")
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+if prompt := st.chat_input(""):
+
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    # with st.chat_message("assistant"):
+    #     response_placeholder = st.empty()
+    #     for response in get_response(prompt=prompt, history=st.session_state.messages, llm=llm_toggle, llm_model='qwen', online=True): 
+    #         response_placeholder.markdown(response)
+            
+    # st.session_state.messages.append({"role": "user", "content": prompt})
+    # st.session_state.messages.append({"role": "assistant", "content": response})
