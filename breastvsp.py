@@ -59,11 +59,7 @@ if prompt:
             result_format='message',  # set the result to be "message"  format.
         )
         if response.status_code == HTTPStatus.OK:
-            st.write(response)
-
-        # response_placeholder = st.empty()
-        # for response in get_response(prompt=prompt, history=st.session_state.messages, llm=llm_toggle, llm_model='qwen', online=True): 
-        #     response_placeholder.markdown(response)
+            response_placeholder = st.empty()
+            response_placeholder.markdown(response.output.choices[0]['message']['content'])
             
-    # st.session_state.messages.append({"role": "user", "content": prompt})
-    # st.session_state.messages.append({"role": "assistant", "content": response})
+        st.sessino_state.messages.append({'role': response.output.choices[0]['message']['role'],'content': response.output.choices[0]['message']['content']})
