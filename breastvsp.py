@@ -11,9 +11,7 @@ st.set_page_config(
 
 st.title('乳腺外科虚拟病人')
 
-with st.expander("请输入你的姓名、年级"):
-    name = st.text_input('姓名')
-    grade = st.selectbox('年级',tuple(range(1,10)))
+name = st.text_input('姓名')
+grade = st.selectbox('年级',tuple(range(2010,2030)))
 
-st.write('你的姓名是：', name)
-st.write('你的年级是：', grade)
+st.button('保存')
