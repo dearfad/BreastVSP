@@ -14,4 +14,4 @@ st.title('Breast VSP')
 gc = gspread.service_account_from_dict(st.secrets.gspread_credentials)
 sh = gc.open("breastvsp")
 
-st.write(sh)
+st.write(sh.sheet1.get('A1'))
