@@ -31,7 +31,7 @@ if not st.session_state.login:
             st.error('请输入姓名', icon="🚨")
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [{'role': 'system', 'content': 'You are a helpful assistant.'}]
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
