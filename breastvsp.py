@@ -14,4 +14,4 @@ st.title('乳腺外科虚拟病人')
 name = st.text_input('姓名')
 grade = st.selectbox('年级',tuple(range(2010,2030)))
 
-st.button('保存')
+st.button('保存', use_container_width=True, on_click=save_to_gspread([name, grade]))
